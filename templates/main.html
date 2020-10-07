@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+{% load static %} 
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>HarbaStore</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets2/img/favicon.png' %}">
+
+<!-- all css here -->
+    <link rel="stylesheet" href="{% static 'assets2/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets2//css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'assets2/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets2/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'assets2/css/chosen.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets2/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets2/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets2/css/material-design-iconic-font.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets2/css/meanmenu.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets2/css/bundle.css' %}">
+    <link rel="stylesheet" href="{% static 'assets2/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets2/css/responsive.css' %}">
+    <script src="{% static 'assets2/js/vendor/modernizr-2.8.3.min.js' %}"></script>
+
+
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+<script type="text/javascript">
+    var user = '{{request.user}}'
+
+    function getToken(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getToken('csrftoken');
+
+
+///////Cokieeeeeeee for non registered person
+    function getCookie(name) {
+    var cookieArr = document.cookie.split(';');
+
+    for (var i = 0; i < cookieArr.length; i++) {
+      var cookiePair = cookieArr[i].split("=");
+
+      if(name == cookiePair[0].trim()){
+        return  decodeURIComponent(cookiePair[1]);
+      }
+
+    }
+    return null;
+}
+var cart = JSON.parse(getCookie('cart'))
+if(cart == undefined){
+    cart = {}
+    console.log('The cart was created!')
+    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+}
+console.log('cart:', cart)
+</script>
+
+</head>
+
+<body>
+    <div class="organic_food_wrapper">
+        <!--Header start-->
+        <header class="header sticky-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="header_wrapper_inner">
+                           
+                            <div class="logo col-xs-12">
+                                <a href="index.html">
+                                    <img src="{% static 'assets2/img/logo/kk.jfif' %}" height="50px" alt="">
+                                </a>
+                            </div>
+                            
+                            
+                            <div class="main_menu_inner">
+                              
+                                <div class="menu">
+                                    <nav>
+                                        <ul>
+                                            <li><a href="{% url 'store' %}">Home </a> </li>
+                                            <li><a href="{% url 'shop' %}">shop</a>  </li>
+                                           
+                                            </li>
+                                            <li class="mega_parent"><a href="#">Drinks <i class="fa fa-angle-down"></i></a>
+                                                <ul class="mega_menu">
+                                                    <li class="mega_item">
+                                                       <a class="mega_title" href="#">Spirits</a>
+                                                    </li> 
+                                                    <li class="mega_item">
+                                                       <a class="mega_title" href="#">Beers</a>                                                    </li>
+                                                    <li class="mega_item">
+                                                       <a class="mega_title" href="#">Soft Drinks</a>
+                                                    </li>
+                                                </ul>    
+                                            </li>
+
+                                            <li class="mega_parent"><a href="#">Construction <i class="fa fa-angle-down"></i></a>
+                                              <ul class="mega_menu">
+                                                  <li class="mega_item">
+                                                     <a class="mega_title" href="#"></a>
+                                                  </li> 
+                                                  <li class="mega_item">
+                                                     <a class="mega_title" href="#">Tiles</a>                                                    </li>
+                                                  <li class="mega_item">
+                                                     <a class="mega_title" href="#"></a>
+                                                  </li>
+                                              </ul>    
+                                          </li>
+
+                                         </ul>
+                                    </nav>
+                                </div>
+                                
+                                <div class="mobile-menu d-lg-none">
+                                    <nav>
+                                         <ul>
+                                            <li class="active"><a href="{% url 'store' %}">Home </a></li>
+                                            <li><a href="{% url 'shop' %}">shop</a>  </li>
+                                            <li><a href="#">Drinks</a>
+                                              <ul>
+                                                  <li>
+                                                     <a href="#">Spirits</a>
+                                                  </li> 
+                                                  <li>
+                                                     <a href="#">Beers</a>                                                    </li>
+                                                  <li>
+                                                     <a href="#">Soft Drinks</a>
+                                                  </li>
+                                              </ul>    
+                                          </li>
+                                          <li><a href="#">Construction</a>
+                                            <ul>
+                                                <li>
+                                                   <a href="#"></a>
+                                                </li> 
+                                                <li>
+                                                   <a href="#">Tiles</a>                                                    </li>
+                                                <li>
+                                                   <a href="#"></a>
+                                                </li>
+                                            </ul>    
+                                        </li>
+                                            
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="header_right_info d-flex">
+                                <div class="search_box">
+                                    <div class="search_inner">
+                                        <form action="#">
+                                            <input type="text" placeholder="Search our catalog">
+                                            <button type="submit"><i class="ion-ios-search"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="mini__cart">
+                                    <div class="mini_cart_inner">
+                                        <div class="cart_icon">
+                                            <a href="#">
+                                                <span class="cart_icon_inner">
+                                                    <i class="ion-android-cart"></i>
+                                                    <span class="cart_count">2</span>
+                                                </span>
+                                                <span class="item_total">$65.00</span>
+                                            </a>
+                                        </div>
+                                        <!--Mini Cart Box-->
+                                        <div class="mini_cart_box cart_box_one">
+                                            <div class="mini_cart_item">
+                                                <div class="mini_cart_img">
+                                                    <a href="#">
+                                                        <img src="assets/img/cart/1.jpg" alt="">
+                                                        <span class="cart_count">1</span>
+                                                    </a>
+                                                </div>
+                                                <div class="cart_info">
+                                                    <h5><a href="product-details.html">Mushroom Burger</a></h5>
+                                                    <span class="cart_price">$75.99</span>
+                                                </div>
+                                                <div class="cart_remove">
+                                                    <a href="#"><i class="zmdi zmdi-delete"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="mini_cart_item">
+                                                <div class="mini_cart_img">
+                                                    <a href="#">
+                                                        <img src="assets/img/cart/2.jpg" alt="">
+                                                        <span class="cart_count">1</span>
+                                                    </a>
+                                                </div>
+                                                <div class="cart_info">
+                                                    <h5><a href="#">Country Burger</a></h5>
+                                                    <span class="cart_price">$48.99</span>
+                                                </div>
+                                                <div class="cart_remove">
+                                                    <a href="#"><i class="zmdi zmdi-delete"></i></a>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="price_content">
+                                                <div class="cart_subtotals">
+                      <div class="price_inline">
+                        <span class="label">Subtotal </span>
+                        <span class="value">$143.49 </span>
+                      </div>
+                      <div class="price_inline">
+                        <span class="label">Shipping </span>
+                        <span class="value">$7.00</span>
+                      </div>
+                                                    <div class="price_inline">
+                        <span class="label">Taxes </span>
+                        <span class="value">$0.00</span>
+                      </div>
+                                                </div>
+                                                <div class="cart-total-price">
+                      <span class="label">Total </span>
+                      <span class="value">$85.99</span>
+                    </div>
+                                            </div>
+                  <div class="min_cart_checkout">
+                                                <a href="checkout.html">Checkout</a>
+                                            </div>
+                                        </div>
+                                        <!--Mini Cart Box End -->
+                                    </div>
+                                </div>
+                                <div class="header_account">
+                                    <div class="account_inner">
+                                        <a href="#"><i class="ion-gear-b"></i></a>
+                                    </div>
+                                    <div class="content-setting-dropdown">
+                <div class="language-selector-wrapper">
+                  <div class="language-selector">
+                    <ul>
+                      <li><a href="#"><img src="assets/img/1.jpg" alt="English"><span class="expand-more">English</span></a></li>
+                      
+                      <li><a href="#"><img src="assets/img/banner/frances2.jpg" alt="Language"><span class="expand-more">Français</span> </a></li>	
+                      
+                    </ul>
+
+                  </div>
+                  <div class="currency-selector-wrapper">
+                    <ul>
+                      <li><a href="#">EUR $</a></li>
+                      <li><a href="#">USD $</a></li>
+                    </ul>
+                  </div>
+                  <div class="user_info_top">
+                    <ul>
+                      <li><a href="my-account.html">my account</a></li>
+                      <li><a href="checkout.html">Checkout</a></li>
+                      <li><a href="login.html">Sign in</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+                                </div>
+          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--Header end-->
+</div> 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'store' %}">Harbastore</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'store' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'shop' %}">Shop</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li> -->
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Beers
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Black Beers</a>
+                <a class="dropdown-item" href="#">Red Beers</a>
+                <a class="dropdown-item" href="#">Spirits</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">All Beers</a>
+              </div>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li> -->
+          </ul>
+          <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form> -->
+          <div class="form-inline my-2 my-lg-0">
+                <a href="#" class="btn btn-warning">Login</a>
+                <a href="{% url 'cart' %}">
+                    <img id="cart-icon" src="{% static 'images/cart.png' %}">
+                </a>
+                <p id="cart-total">{{cartItems}}</p>
+          </div>
+        </div>
+      </nav>
+<div class="container">
+    {% block content %}
+
+    {% endblock content %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="{% static 'js/cart.js'%}"></script>
+
+
+<!-- all js here -->
+<script src="{% static 'assets2/js/vendor/jquery-1.12.0.min.js' %}"></script>
+<script src="{% static 'assets2/js/popper.js' %}"></script>
+<script src="{% static 'assets2/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets2/js/jquery-ui.js' %}"></script>
+<script src="{% static 'assets2/js/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'assets2/js/imagesloaded.pkgd.min.js' %}"></script>
+<script src="{% static 'assets2/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'assets2/js/waypoints.min.js' %}"></script>
+<script src="{% static 'assets2/js/ajax-mail.js' %}"></script>
+<script src="{% static 'assets2/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets2/js/plugins.js' %}"></script>
+<script src="{% static 'assets2/js/main.js' %}"></script>
+</body>
+</html>
